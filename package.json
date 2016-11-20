@@ -1,0 +1,19 @@
+{
+  "name": "loop-energy-http-api",
+  "version": "1.0.0",
+  "description": "Loop energy meter via an HTTP API",
+  "main": "server.js",
+  "author": "Phil Dye <phil@phildye.org>",
+  "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/PhilDye/loop-energy-http-api.git"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io-client": "0.9.16"
+  }
+}
