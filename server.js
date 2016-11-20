@@ -22,7 +22,7 @@ var socket = io.connect('https://www.your-loop.com', {reconnect: true});
 
 socket.on('connect', function(){
 
-    console.log("Connected to Loop");
+  console.log("Connected to Loop");
 
   // Subscribe to electricity readings in watts
   socket.emit("subscribe_electric_realtime", {
@@ -59,9 +59,7 @@ socket.on('disconnect', function(){ console.log("Disconnected from Loop")});
 
 app.get('/', (req, res) => {
 
-
-
-    var q = { "interval": intervalEnd - intervalStart, "meanW": getMean(intervalW), "medianW": getMedian(intervalW) };
+    var q = { "interval": intervalEnd - intervalStart, "meanW": Math.round(getMean(intervalW)), "medianW": Math.round(getMedian(intervalW)) };
     
     // reset the counters
     intervalW = [];
@@ -92,7 +90,6 @@ function getMean(values) {
 }
 
 function getMedian(values) {
-
     values.sort( function(a,b) {return a - b;} );
 
     var half = Math.floor(values.length/2);
