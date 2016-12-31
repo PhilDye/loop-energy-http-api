@@ -12,7 +12,7 @@ var io = require('socket.io-client');
 var elec_serial = process.env.ELEC_SERIAL; 
 var elec_secret = process.env.ELEC_SECRET;
 
-var lastData = 0;
+var lastData = {};
 var totalEnergy = 0;
 var lastReset = 0;
 
@@ -53,8 +53,8 @@ socket.on('electric_realtime', function(data) {
     periodEnergy = data.inst/1000 *  (data.deviceTimestamp - lastData.deviceTimestamp)/3600;
     totalEnergy += periodEnergy;
 
-    console.log("Interval energy/kWh: ", round(periodEnergy,3), " (power/kW: ", round(data.inst/1000,3), "; interval/s: ", data.deviceTimestamp - lastData.deviceTimestamp, ")" );
-    console.log("Total energy/kWh: ", round(totalEnergy,3));
+    //console.log("Interval energy/kWh: ", round(periodEnergy,3), " (power/kW: ", round(data.inst/1000,3), "; interval/s: ", data.deviceTimestamp - lastData.deviceTimestamp, ")" );
+    //console.log("Total energy/kWh: ", round(totalEnergy,3));
 
     lastData = data;
 });
@@ -64,7 +64,7 @@ socket.on('disconnect', function(){ console.log("Disconnected from Loop")});
 
 app.get('/', (req, res) => {
 
-    var q = { "lastReset": new Date(lastReset*1000), "power": lastData.inst, "energy": round(totalEnergy,3) };
+    var q = { "latestData": new Date(lastData.deviceTimestamp*1000), "power": lastData.inst, "energy": round(totalEnergy,3), "energyReset": new Date(lastReset*1000), };
 
     res.json(q);
 });
