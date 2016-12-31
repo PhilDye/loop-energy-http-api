@@ -64,9 +64,11 @@ socket.on('disconnect', function(){ console.log("Disconnected from Loop")});
 
 app.get('/', (req, res) => {
 
-    var q = { "latestData": new Date(lastData.deviceTimestamp*1000), "power": lastData.inst, "energy": round(totalEnergy,3), "energyReset": new Date(lastReset*1000), };
+    var q = { "serial": lastData.serial,
+              "data": { "latestData": new Date(lastData.deviceTimestamp*1000), "power": lastData.inst, "energy": round(totalEnergy,3), "energyReset": new Date(lastReset*1000), }
+    };
 
-    res.json(q);
+    res.json([q]);
 });
 
 app.listen(process.env.PORT || port, (err) => {  
