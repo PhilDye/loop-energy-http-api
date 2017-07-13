@@ -10,7 +10,7 @@
     "url": "https://github.com/PhilDye/loop-energy-http-api.git"
   },
   "engines": {
-    "node": "4.8.4"
+    "node": "4.6.2"
   },
   "scripts": {
     "start": "nf start"
